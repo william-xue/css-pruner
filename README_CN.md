@@ -17,16 +17,16 @@
 
 ```bash
 # 使用 npm
-npm install -g css-pruner
+npm install -g @fe-fast/unused-css-pruner
 
 # 使用 yarn
-yarn global add css-pruner
+yarn global add @fe-fast/unused-css-pruner
 
 # 使用 pnpm
-pnpm add -g css-pruner
+pnpm add -g @fe-fast/unused-css-pruner
 
 # 项目特定用法
-npm install --save-dev css-pruner
+npm install --save-dev @fe-fast/unused-css-pruner
 ```
 
 ## 快速开始 🚀
@@ -50,7 +50,7 @@ css-pruner init
 ### 编程使用
 
 ```typescript
-import { analyzeCSSUsage, cleanCSS } from 'css-pruner';
+import { analyzeCSSUsage, cleanCSS } from '@fe-fast/unused-css-pruner';
 
 // 分析 CSS 使用情况
 const result = await analyzeCSSUsage({

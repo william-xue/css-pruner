@@ -17,16 +17,16 @@ A powerful and intelligent CSS cleanup tool that identifies and removes unused C
 
 ```bash
 # Using npm
-npm install -g css-pruner
+npm install -g @fe-fast/unused-css-pruner
 
 # Using yarn
-yarn global add css-pruner
+yarn global add @fe-fast/unused-css-pruner
 
 # Using pnpm
-pnpm add -g css-pruner
+pnpm add -g @fe-fast/unused-css-pruner
 
 # For project-specific usage
-npm install --save-dev css-pruner
+npm install --save-dev @fe-fast/unused-css-pruner
 ```
 
 ## Quick Start 🚀
@@ -48,9 +48,8 @@ css-pruner init
 ```
 
 ### Programmatic Usage
-
 ```typescript
-import { analyzeCSSUsage, cleanCSS } from 'css-pruner';
+import { analyzeCSSUsage, cleanCSS } from '@fe-fast/unused-css-pruner';
 
 // Analyze CSS usage
 const result = await analyzeCSSUsage({
@@ -160,7 +159,7 @@ css-pruner init [filename]
 ### Webpack Plugin
 
 ```javascript
-const CSSPrunerPlugin = require('css-pruner/webpack');
+const CSSPrunerPlugin = require('@fe-fast/unused-css-pruner/webpack');
 
 module.exports = {
   plugins: [
@@ -176,7 +175,7 @@ module.exports = {
 ### Vite Plugin
 
 ```javascript
-import { cssPruner } from 'css-pruner/vite';
+import { cssPruner } from '@fe-fast/unused-css-pruner/vite';
 
 export default {
   plugins: [
@@ -191,7 +190,7 @@ export default {
 ### Rollup Plugin
 
 ```javascript
-import { cssPruner } from 'css-pruner/rollup';
+import { cssPruner } from '@fe-fast/unused-css-pruner/rollup';
 
 export default {
   plugins: [
