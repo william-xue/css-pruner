@@ -270,6 +270,133 @@ module.exports = {
 };
 ```
 
+## Examples 🚀
+
+The `examples/` directory contains three comprehensive demo projects that showcase CSS Pruner's capabilities with different build systems and frameworks. Each example includes intentionally redundant CSS classes to demonstrate the tool's effectiveness.
+
+### Available Examples
+
+#### 1. Webpack + React Example
+**Location**: `examples/webpack-react-example/`
+
+**Features**:
+- React 18 with functional components and hooks
+- Webpack 5 with CSS extraction
+- Interactive counter application with reusable components
+- Extensive unused CSS classes for testing
+
+**Quick Start**:
+```bash
+cd examples/webpack-react-example
+npm install
+npm run build
+npm run css-prune
+```
+
+#### 2. Vite + Vue Example
+**Location**: `examples/vite-vue-example/`
+
+**Features**:
+- Vue 3 with Composition API
+- Vite for fast development and building
+- Interactive todo list and counter functionality
+- Vue-specific CSS class patterns
+
+**Quick Start**:
+```bash
+cd examples/vite-vue-example
+npm install
+npm run build
+npm run css-prune
+```
+
+#### 3. Rollup + Vue Example
+**Location**: `examples/rollup-vue-example/`
+
+**Features**:
+- Vue 3 with advanced component architecture
+- Rollup for optimized bundling
+- Interactive dashboard with task management
+- Comprehensive CSS utility classes
+
+**Quick Start**:
+```bash
+cd examples/rollup-vue-example
+npm install
+npm run build
+npm run analyze-css
+```
+
+### What Each Example Demonstrates
+
+**Common CSS Patterns Tested**:
+- Layout & Grid Systems (Bootstrap-style classes)
+- Component Variants (buttons, cards, forms)
+- Utility Classes (spacing, typography, colors)
+- Animations & Effects
+- Framework-specific patterns
+
+**Expected Results**:
+Each example should detect **60-80% unused CSS classes**, demonstrating:
+- High detection accuracy
+- Framework compatibility
+- Build tool integration
+- Comprehensive report generation
+
+**Typical Output**:
+```
+📊 CSS Analysis Results:
+📁 CSS Files Analyzed: 1
+📄 Total CSS Rules: ~200-300
+✅ Used CSS Classes: ~60-80
+❌ Unused CSS Classes: ~120-200
+📉 Potential Size Reduction: 60-75%
+```
+
+### Running Examples
+
+For any example:
+
+1. **Navigate to example directory**:
+   ```bash
+   cd examples/[example-name]
+   ```
+
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+
+3. **Build the project**:
+   ```bash
+   npm run build
+   ```
+
+4. **Run CSS analysis**:
+   ```bash
+   npm run css-prune  # or npm run analyze-css
+   ```
+
+5. **View results**:
+   - Check console output for summary
+   - Open `css-analysis/report.html` for detailed view
+   - Review `css-analysis/report.json` for programmatic access
+
+6. **Preview application** (optional):
+   ```bash
+   npm run preview  # or npm run dev
+   ```
+
+### Configuration Files
+
+Each example includes:
+- **`css-pruner.config.js`**: CSS Pruner configuration
+- **Build config**: Framework-specific build configuration
+- **`package.json`**: Dependencies and npm scripts
+- **`README.md`**: Example-specific documentation
+
+For detailed information about each example, see the README files in their respective directories.
+
 ## Report Formats 📊
 
 ### Console Report
