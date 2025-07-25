@@ -1,5 +1,5 @@
 {
-  "name": "unused-css-pruner",
+  "name": "@fe-fast/unused-css-pruner",
   "version": "1.0.0",
   "description": "A powerful CSS pruning tool that removes unused styles with support for dynamic class names, CSS-in-JS, and component-level analysis",
   "main": "dist/index.js",
@@ -22,8 +22,21 @@
     "postcss",
     "build-tool"
   ],
-  "author": "",
+  "author": "william-xue",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/william-xue/css-pruner.git"
+  },
+  "homepage": "https://github.com/william-xue/css-pruner",
+  "bugs": {
+    "url": "https://github.com/william-xue/css-pruner/issues"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "README_CN.md"
+  ],
   "dependencies": {
     "chalk": "^5.4.1",
     "commander": "^14.0.0",
