@@ -1,6 +1,6 @@
 {
   "name": "@fe-fast/unused-css-pruner",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A powerful CSS pruning tool that removes unused styles with support for dynamic class names, CSS-in-JS, and component-level analysis",
   "type": "module",
   "main": "dist/index.js",
