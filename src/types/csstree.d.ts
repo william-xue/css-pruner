@@ -1,4 +1,4 @@
-declare module 'csstree' {
+declare module 'css-tree' {
   export interface CSSTreeNode {
     type: string;
     [key: string]: any;

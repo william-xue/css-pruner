@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { Config } from './types';
-import { fileExists, readFile } from './utils';
+import { Config } from './types.js';
+import { fileExists, readFile } from './utils/index.js';
 
 /**
  * Default configuration
@@ -157,9 +157,20 @@ async function loadConfigFile(filePath: string): Promise<Partial<Config> | null>
 function mergeConfig(defaultConfig: Config, userConfig: Partial<Config>): Config {
   const merged = { ...defaultConfig };
   
+  // Handle backward compatibility: sourceFiles -> sourceDirectories
+  if ((userConfig as any).sourceFiles && !userConfig.sourceDirectories) {
+    console.warn('Warning: "sourceFiles" is deprecated, please use "sourceDirectories" instead.');
+    userConfig.sourceDirectories = (userConfig as any).sourceFiles;
+  }
+  
   // Simple merge for most properties
   Object.keys(userConfig).forEach(key => {
     const userValue = (userConfig as any)[key];
+    
+    // Skip deprecated sourceFiles field
+    if (key === 'sourceFiles') {
+      return;
+    }
     
     if (userValue !== undefined) {
       if (Array.isArray(userValue)) {

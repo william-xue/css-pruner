@@ -2,9 +2,28 @@
   "name": "@fe-fast/unused-css-pruner",
   "version": "1.0.0",
   "description": "A powerful CSS pruning tool that removes unused styles with support for dynamic class names, CSS-in-JS, and component-level analysis",
+  "type": "module",
   "main": "dist/index.js",
   "bin": {
     "css-pruner": "dist/cli.js"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./vite": {
+      "import": "./dist/vite.js",
+      "types": "./dist/vite.d.ts"
+    },
+    "./webpack": {
+      "import": "./dist/webpack.js",
+      "types": "./dist/webpack.d.ts"
+    },
+    "./rollup": {
+      "import": "./dist/rollup.js",
+      "types": "./dist/rollup.d.ts"
+    }
   },
   "scripts": {
     "build": "tsc",
@@ -40,7 +59,7 @@
   "dependencies": {
     "chalk": "^5.4.1",
     "commander": "^14.0.0",
-    "csstree": "^0.0.3",
+    "css-tree": "^3.1.0",
     "glob": "^11.0.3",
     "postcss": "^8.5.6",
     "ts-morph": "^26.0.0",

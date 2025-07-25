@@ -1,21 +1,24 @@
 // Core exports
-export { CSSPruner } from './core/pruner';
-export { CSSParser } from './core/css-parser';
-export { SourceScanner } from './core/source-scanner';
+export { CSSPruner } from './core/pruner.js';
+export { CSSParser } from './core/css-parser.js';
+export { SourceScanner } from './core/source-scanner.js';
 
 // Reporter exports
-export { ConsoleReporter } from './reporters/console-reporter';
-export { JSONReporter } from './reporters/json-reporter';
-export { HTMLReporter } from './reporters/html-reporter';
+export { ConsoleReporter } from './reporters/console-reporter.js';
+export { JSONReporter } from './reporters/json-reporter.js';
+export { HTMLReporter } from './reporters/html-reporter.js';
 
 // Configuration exports
-export { loadConfig, createSampleConfig, DEFAULT_CONFIG } from './config';
+export { loadConfig, createSampleConfig, DEFAULT_CONFIG } from './config.js';
 
 // Type exports
-export * from './types';
+export * from './types.js';
 
 // Utility exports
-export * from './utils';
+export * from './utils/index.js';
+
+// Plugin exports
+export * from './plugins/index.js';
 
 // Main API function for programmatic usage
 export async function analyzeCSSUsage(options: {
@@ -139,4 +142,5 @@ export async function quickAnalysis(cssGlob: string, sourceGlob: string): Promis
 }
 
 // Version information
-export const version = require('../package.json').version;
+import packageJson from '../package.json' assert { type: 'json' };
+export const version = packageJson.version;

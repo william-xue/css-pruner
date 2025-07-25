@@ -160,14 +160,21 @@ css-pruner init [filename]
 ### Webpack 插件
 
 ```javascript
-const CSSPrunerPlugin = require('css-pruner/webpack');
+const { CSSPrunerPlugin } = require('@fe-fast/unused-css-pruner/webpack');
 
 module.exports = {
   plugins: [
     new CSSPrunerPlugin({
       cssFiles: ['dist/**/*.css'],
       sourceDirectories: ['src'],
-      outputDir: 'dist'
+      mode: 'analyze', // 或 'clean'
+      config: {
+        reportFormat: 'console',
+        verbose: true
+      },
+      onAnalysisComplete: (result) => {
+        console.log(`发现 ${result.unusedSelectors.length} 个未使用选择器`);
+      }
     })
   ]
 };
@@ -176,13 +183,22 @@ module.exports = {
 ### Vite 插件
 
 ```javascript
-import { cssPruner } from 'css-pruner/vite';
+import { cssPruner } from '@fe-fast/unused-css-pruner/vite';
 
 export default {
   plugins: [
     cssPruner({
       cssFiles: ['dist/**/*.css'],
-      sourceDirectories: ['src']
+      sourceDirectories: ['src'],
+      mode: 'analyze', // 或 'clean'
+      config: {
+        reportFormat: 'console',
+        verbose: true,
+        whitelist: [/^btn-/, /^text-/] // 保护动态类
+      },
+      onAnalysisComplete: (result) => {
+        console.log(`发现 ${result.unusedSelectors.length} 个未使用选择器`);
+      }
     })
   ]
 };
@@ -191,16 +207,30 @@ export default {
 ### Rollup 插件
 
 ```javascript
-import { cssPruner } from 'css-pruner/rollup';
+import { cssPruner } from '@fe-fast/unused-css-pruner/rollup';
 
 export default {
   plugins: [
     cssPruner({
       cssFiles: ['dist/**/*.css'],
-      sourceDirectories: ['src']
+      sourceDirectories: ['src'],
+      mode: 'analyze', // 或 'clean'
+      config: {
+        reportFormat: 'console',
+        verbose: true
+      },
+      onAnalysisComplete: (result) => {
+        console.log(`发现 ${result.unusedSelectors.length} 个未使用选择器`);
+      }
     })
   ]
 };
+```
+
+> 💡 **插件使用提示**: 
+> - `analyze` 模式：安全分析，不修改文件，适合开发环境
+> - `clean` 模式：实际清理CSS，建议在生产构建中使用
+> - 详细使用指南请参考 [PLUGIN_USAGE.md](./PLUGIN_USAGE.md)
 ```
 
 ## 高级功能 🎯

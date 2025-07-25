@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as glob from 'glob';
-import { FileInfo, DynamicClassPattern } from '../types';
+import { FileInfo, DynamicClassPattern } from '../types.js';
 
 export class SourceScanner {
   private dynamicPatterns: DynamicClassPattern[] = [

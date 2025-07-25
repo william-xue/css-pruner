@@ -92,8 +92,8 @@ export interface CleanResult {
   /** Files that were modified */
   modifiedFiles: string[];
   
-  /** Backup files created */
-  backupFiles?: string[];
+  /** Backup files created (always created for safety) */
+  backupFiles: string[];
 }
 
 export interface UnusedSelector {

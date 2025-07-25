@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { AnalysisResult } from '../types';
+import { AnalysisResult } from '../types.js';
 
 export class JSONReporter {
   /**

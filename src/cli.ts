@@ -2,8 +2,8 @@
 
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { CSSPruner } from './core/pruner';
-import { PrunerConfig } from './types';
+import { CSSPruner } from './core/pruner.js';
+import { PrunerConfig } from './types.js';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -30,13 +30,15 @@ program
       // Load config
       let config: Partial<PrunerConfig> = {};
       if (options.config && fs.existsSync(options.config)) {
-        config = JSON.parse(fs.readFileSync(options.config, 'utf-8'));
+        const configPath = path.resolve(options.config);
+        const configModule = await import(configPath);
+        config = configModule.default || configModule;
       }
       
       // Merge CLI options with config
       const finalConfig: PrunerConfig = {
         cssFiles: options.css || config.cssFiles || [],
-        sourceDirectories: options.src || config.sourceDirectories || ['./src'],
+        sourceDirectories: options.src || config.sourceDirectories || (config as any).sourceFiles || ['./src'],
         outputFile: options.output || config.outputFile,
         dryRun: options.dryRun || config.dryRun || false,
         reportFormat: options.format || config.reportFormat || 'console',
@@ -83,12 +85,14 @@ program
       // Load config
       let config: Partial<PrunerConfig> = {};
       if (options.config && fs.existsSync(options.config)) {
-        config = JSON.parse(fs.readFileSync(options.config, 'utf-8'));
+        const configPath = path.resolve(options.config);
+        const configModule = await import(configPath);
+        config = configModule.default || configModule;
       }
       
       const finalConfig: PrunerConfig = {
         cssFiles: options.css || config.cssFiles || [],
-        sourceDirectories: options.src || config.sourceDirectories || ['./src'],
+        sourceDirectories: options.src || config.sourceDirectories || (config as any).sourceFiles || ['./src'],
         dryRun: false,
         reportFormat: 'console',
         whitelist: config.whitelist || [],

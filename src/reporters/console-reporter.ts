@@ -1,5 +1,5 @@
 import chalk from 'chalk';
-import { AnalysisResult } from '../types';
+import { AnalysisResult } from '../types.js';
 
 export class ConsoleReporter {
   /**

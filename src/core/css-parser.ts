@@ -1,7 +1,7 @@
-import * as csstree from 'csstree';
+import { parse, walk, generate } from 'css-tree';
 import * as fs from 'fs';
 import * as path from 'path';
-import { CSSRule, FileInfo } from '../types';
+import { CSSRule, FileInfo } from '../types.js';
 
 export class CSSParser {
   /**
@@ -30,12 +30,12 @@ export class CSSParser {
     const rules: CSSRule[] = [];
     
     try {
-      const ast = csstree.parse(content, {
+      const ast = parse(content, {
         positions: true,
         filename: filePath
       });
       
-      csstree.walk(ast, (node: any, item: any, list: any) => {
+      walk(ast, (node: any, item: any, list: any) => {
         if (node.type === 'Rule') {
           const selectors = this.extractSelectors(node);
           const properties = this.extractProperties(node);
@@ -55,13 +55,13 @@ export class CSSParser {
         
         // Handle @media rules
         if (node.type === 'Atrule' && node.name === 'media') {
-          const mediaQuery = csstree.generate(node.prelude);
+          const mediaQuery = generate(node.prelude);
           this.parseMediaRules(node, filePath, mediaQuery, rules);
         }
         
         // Handle @keyframes rules
         if (node.type === 'Atrule' && node.name === 'keyframes') {
-          const keyframeName = csstree.generate(node.prelude);
+          const keyframeName = generate(node.prelude);
           this.parseKeyframeRules(node, filePath, keyframeName, rules);
         }
       });
@@ -81,7 +81,7 @@ export class CSSParser {
     
     if (ruleNode.prelude && ruleNode.prelude.type === 'SelectorList') {
       ruleNode.prelude.children.forEach((selector: any) => {
-        const selectorText = csstree.generate(selector);
+        const selectorText = generate(selector);
         selectors.push(selectorText);
       });
     }
@@ -94,7 +94,7 @@ export class CSSParser {
    */
   private extractProperties(ruleNode: any): string {
     if (ruleNode.block && ruleNode.block.type === 'Block') {
-      return csstree.generate(ruleNode.block);
+      return generate(ruleNode.block);
     }
     return '';
   }
@@ -104,7 +104,7 @@ export class CSSParser {
    */
   private parseMediaRules(mediaNode: any, filePath: string, mediaQuery: string, rules: CSSRule[]): void {
     if (mediaNode.block && mediaNode.block.type === 'Block') {
-      csstree.walk(mediaNode.block, (node: any) => {
+      walk(mediaNode.block, (node: any) => {
         if (node.type === 'Rule') {
           const selectors = this.extractSelectors(node);
           const properties = this.extractProperties(node);
@@ -130,27 +130,23 @@ export class CSSParser {
    * Parse rules inside @keyframes
    */
   private parseKeyframeRules(keyframeNode: any, filePath: string, keyframeName: string, rules: CSSRule[]): void {
-    if (keyframeNode.block && keyframeNode.block.type === 'Block') {
-      csstree.walk(keyframeNode.block, (node: any) => {
-        if (node.type === 'Rule') {
-          const selectors = this.extractSelectors(node);
-          const properties = this.extractProperties(node);
-          const position = node.loc;
-          
-          for (const selector of selectors) {
-            rules.push({
-              selector: selector.trim(),
-              properties,
-              file: filePath,
-              line: position?.start.line || 0,
-              column: position?.start.column || 0,
-              size: this.calculateRuleSize(selector, properties),
-              keyframe: keyframeName
-            });
-          }
-        }
-      });
-    }
+    // Don't extract individual keyframe rules (0%, 50%, etc.) as they are not selectors
+    // that can be independently removed. The entire @keyframes rule should be treated as a unit.
+    // This prevents keyframe percentage rules from being incorrectly identified as unused selectors.
+    
+    // Instead, we could add the @keyframes rule itself as a special rule type
+    const position = keyframeNode.loc;
+    const keyframeRule = `@keyframes ${keyframeName}`;
+    
+    rules.push({
+      selector: keyframeRule,
+      properties: keyframeNode.block ? generate(keyframeNode.block) : '',
+      file: filePath,
+      line: position?.start.line || 0,
+      column: position?.start.column || 0,
+      size: this.calculateRuleSize(keyframeRule, keyframeNode.block ? generate(keyframeNode.block) : ''),
+      keyframe: keyframeName
+    });
   }
   
   /**
