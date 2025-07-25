@@ -384,11 +384,9 @@ MIT 许可证 - 详情请参阅 [LICENSE](LICENSE) 文件。
 
 ## 支持 💬
 
-- 📖 [文档](https://css-pruner.dev)
+- 📖 [文档]
 - 🐛 [问题跟踪器](https://github.com/william-xue/css-pruner/issues)
 - 💬 [讨论](https://github.com/william-xue/css-pruner/discussions)
-- 📧 [邮件支持](mailto:support@css-pruner.dev)
+- 📧 [邮件支持]
 
 ---
-
-**由 CSS Pruner 团队用 ❤️ 制作**

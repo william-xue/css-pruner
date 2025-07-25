@@ -384,11 +384,10 @@ See [CHANGELOG.md](CHANGELOG.md) for a list of changes.
 
 ## Support 💬
 
-- 📖 [Documentation](https://css-pruner.dev)
+- 📖 [Documentation]
 - 🐛 [Issue Tracker](https://github.com/william-xue/css-pruner/issues)
 - 💬 [Discussions](https://github.com/william-xue/css-pruner/discussions)
-- 📧 [Email Support](mailto:support@css-pruner.dev)
+- 📧 [Email Support]
 
 ---
 
-**Made with ❤️ by the CSS Pruner team**
